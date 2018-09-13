@@ -10,7 +10,7 @@ sudo: enabled
 dist: trusty
 
 before_install:
-- openssl aes-256-cbc -K $encrypted_d744ec36f83f_key -iv $encrypted_d744ec36f83f_iv
+- openssl aes-256-cbc -K $encrypted_5521cf2de878_key -iv $encrypted_5521cf2de878_iv
   -in secrets.py.enc -out src/secrets.py -d
 
 install:
