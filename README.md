@@ -1,6 +1,6 @@
 # Christ Church Mayfair Amazon Alexa Skill
 
-![https://travis-ci.org/ChristChurchMayfair/ccm-alexa-skill](https://travis-ci.org/ChristChurchMayfair/ccm-alexa-skill.svg?branch=master)
+[![Travis Build status](https://travis-ci.org/ChristChurchMayfair/ccm-alexa-skill.svg?branch=master)](https://travis-ci.org/ChristChurchMayfair/ccm-alexa-skill)
 
 AWS Lambda function for Christ Church Mayfair Assistant Alexa skill.
 
