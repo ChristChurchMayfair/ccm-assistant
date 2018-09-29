@@ -2,3 +2,4 @@
 .idea/*
 src/secrets.py
 *.DS_Store
+venv/
