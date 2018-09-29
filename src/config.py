@@ -9,10 +9,10 @@ BIBLE_API_URL = "https://bibles.org/v2/eng-{translation}/passages.js".format(
 # Sermons
 SERMONS_XML_URL = "http://www.christchurchmayfair.org/our-talks/podcast/"
 SERMONS_XML_NAMESPACE = {
-    "ccm": "http://www.christchurchmayfair.org/",
+    "ccm": "http://christchurchmayfair.org/",
     "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"
 }
-SERMONS_XML_SERVICE_NAMES = {"morning": "AM Service", "evening": "6PM Service"}
+SERMONS_XML_SERVICE_NAMES = {"morning": "Morning Service", "evening": "Evening Service"}
 # Alexa audio must be served from https endpoint
 HTTP_MP3_TO_HTTPS_M3U_API_URL = ("https://0elu033c2a.execute-api.eu-west-1.amazonaws.com/prod/"
                                  "m3uGenerator")
