@@ -6,6 +6,10 @@ BIBLE_TRANSLATION = "GNBDC"  # Can't use NIV - it's still in copyright
 BIBLE_API_URL = "https://bibles.org/v2/eng-{translation}/passages.js".format(
     translation=BIBLE_TRANSLATION)
 
+# Bible Passages
+BIBLE_PASSAGES_CSV_URL = ("https://docs.google.com/spreadsheets/d/e/2PACX-1vQqiE5BF"
+                          "-VtKfaV9NtpwYqgT3Ijw5pRmfbg7mzIIMrV5huonrAYQPawIHzoqA-_fAsUgP4Bvcs6NgUk/pub?output=csv")
+
 # Sermons
 SERMONS_XML_URL = "http://www.christchurchmayfair.org/our-talks/podcast/"
 SERMONS_XML_NAMESPACE = {

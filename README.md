@@ -25,14 +25,11 @@ AWS Lambda function for Christ Church Mayfair Assistant Alexa skill.
   
 ## Contributing
 ### Adding bible passage readings for future sermons
-Add rows to `src/resources/data/passages.csv` **making sure that the dates are in `YYYY-MM-DD`
-format.** If you're using Excel, select the date column, *Format > Cells* and select the
-`YYYY-MM-DD` format.
+Add rows to [this Google Sheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqiE5BF-VtKfaV9NtpwYqgT3Ijw5pRmfbg7mzIIMrV5huonrAYQPawIHzoqA-_fAsUgP4Bvcs6NgUk/pub?output=csv).
 
 ### Running and testing locally:
 - Install dependencies by running `pip install -r src/requirements.txt`
 - Add these environment variables:
-  - `LAMBDA_TASK_ROOT` - the file path of the `src/` directory
   - `PYTHONPATH` - the file path of the `src/` directory
 - Make the file, `src/secrets.py`, containing API keys and the like. Copy across the content from
   `src/secrets.py.template` and either get your own keys or email mauriceyap@hotmail.co.uk

@@ -1,13 +1,16 @@
-import os
 import csv
+import requests
+
+from config import BIBLE_PASSAGES_CSV_URL
 
 
 def get_passage(date, service):
     # Returns a dictionary of the book and start and end chapters and verses
     # for the given service
-    with open(os.path.join(os.environ["LAMBDA_TASK_ROOT"], "resources", "data", "passages.csv"),
-              "r") as f:
-        reader = csv.DictReader(f)
+
+    try:
+        response = requests.get(BIBLE_PASSAGES_CSV_URL)
+        reader = csv.DictReader(response.iter_lines())
         for row in reader:
             if row['date'] == date.strftime('%Y-%m-%d'):
                 if not row['{} book'.format(service)]:
@@ -24,4 +27,7 @@ def get_passage(date, service):
                         'verse': row['{} end verse'.format(service)]
                     }
                 }
+        return None
+    except requests.exceptions.RequestException as e:
+        print(e)
         return None
