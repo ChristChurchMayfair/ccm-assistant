@@ -36,10 +36,3 @@ format.** If you're using Excel, select the date column, *Format > Cells* and se
   - `PYTHONPATH` - the file path of the `src/` directory
 - Make the file, `src/secrets.py`, containing API keys and the like. Copy across the content from
   `src/secrets.py.template` and either get your own keys or email mauriceyap@hotmail.co.uk
-  
-### TODO:
-- [] Add tests
-- [] Migrate bible passage database from static csv file to Google Sheets
-- [] Investigate licencing for using NIV bible
-- [] Improve handling of errors in general
-- [] Add instructions for forking and using for other churches, including deployment etc.
