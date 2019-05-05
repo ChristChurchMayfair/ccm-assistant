@@ -35,7 +35,7 @@ def sunday_from(amazon_date, future_days_go_back_year_threshold=LARGE_NUMBER_DAY
             amazon_date = str(original_year - 1) + amazon_date[4:]
         # Convert week to Sunday
         return datetime.datetime.strptime(
-            amazon_date + "-0", "%Y-W%W-%w").date()
+            amazon_date + "-0", "%Y-W%U-%w").date()
     else:
         print(amazon_date)
         return None
