@@ -31,7 +31,7 @@ deploy:
   function_name: alexa-ChristChurchMayfairAssistant
   region: eu-west-1
   role: arn:aws:iam::882482748234:role/lambda_basic_execution
-  runtime: python2.7
+  runtime: python3.6
   module_name: alexa_main
   handler_name: lambda_handler
   zip: deploy-zip/alexa.zip
