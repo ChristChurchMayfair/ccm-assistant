@@ -2,8 +2,8 @@ from datetime import datetime
 
 
 # Welcome
-WELCOME_TITLE = "Christ Church Mayfair Assistant"
-WELCOME_CONTENT = "Welcome! Ask me for the bible reading for a service or a past sermon."
+WELCOME_TITLE = "Christ Church Mayfair"
+WELCOME_CONTENT = "Hello! Ask me for the bible reading for a service or a past sermon."
 
 # End session
 END_SESSION_TITLE = "See you later!"

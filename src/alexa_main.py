@@ -16,9 +16,6 @@ def lambda_handler(event, context):
     if application_id != config.APPLICATION_ID:
         raise ValueError("Invalid Application ID")
 
-    if "session" in event.keys() and event["session"] and event["session"]["new"]:
-        events.on_session_started({"requestId": event["request"]["requestId"]}, event["session"])
-
     request_type = event["request"]["type"]
 
     if request_type == "LaunchRequest":

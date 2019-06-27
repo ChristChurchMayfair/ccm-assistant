@@ -2,7 +2,7 @@ import config
 import requests
 import re
 from datetime import datetime
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 
 EVENT_NAMES_TO_IGNORE = ["10.15 Service", "6pm Service"]

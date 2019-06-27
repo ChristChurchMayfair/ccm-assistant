@@ -1,10 +1,6 @@
 import intents
 
 
-def on_session_started(session_started_request, session):
-    pass
-
-
 def on_launch():
     return intents.handle_welcome()
 
