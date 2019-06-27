@@ -1,6 +1,7 @@
 import unittest
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any
+import re
 
 import alexa_main
 from config import APPLICATION_ID
@@ -28,9 +29,36 @@ test_version: str = "1.0"
 
 class TestGetSermon(unittest.TestCase):
     def test_get_morning_sermon_three_weeks_ago(self):
+        test_context: Dict[str, Any] = {
+                "AudioPlayer": {
+                    "token": "https://cdn.com/talk.mp3",
+                    "playerActivity": "STOPPED",
+                    "offsetInMilliseconds": 1234
+                },
+                "System": {
+                    "device": {
+                        "deviceId": TEST_DEVICE_ID,
+                        "supportedInterfaces": {
+                            "AudioPlayer": {}
+                        }
+                    },
+                    "application": {
+                        "applicationId": APPLICATION_ID
+                    },
+                    "apiAccessToken": TEST_API_ACCESS_TOKEN,
+                    "user": {
+                        "userId": TEST_USER_ID
+                    },
+                    "apiEndpoint": "https://api.eu.amazonalexa.com"
+                }
+            }
+
         timestamp_now: str = datetime.utcnow().replace(tzinfo=timezone.utc,
                                                        microsecond=0).isoformat().replace("+00:00", "Z")
-        requested_sermon_date: str = "2019-06-09" #(datetime.now() - timedelta(21)).date().isoformat()
+        requested_sermon_date: str = (datetime.now() - timedelta(21)).date().isoformat()
+        service_name: str = "Evening"
+        service_id: str = "EVENING"
+        service_value: str = "evening"
         event = {
             "session": test_session,
             "version": test_version,
@@ -57,8 +85,8 @@ class TestGetSermon(unittest.TestCase):
                                         "values": [
                                             {
                                                 "value": {
-                                                    "name": "Evening",
-                                                    "id": "EVENING"
+                                                    "name": service_name,
+                                                    "id": service_id
                                                 }
                                             }
                                         ],
@@ -67,7 +95,7 @@ class TestGetSermon(unittest.TestCase):
                                 ]
                             },
                             "name": "Service",
-                            "value": "evening",
+                            "value": service_value,
                             "confirmationStatus": "NONE"
                         },
                     },
@@ -77,29 +105,19 @@ class TestGetSermon(unittest.TestCase):
                 "requestId": TEST_REQUEST_ID,
                 "type": "IntentRequest"
             },
-            "context": {
-                "AudioPlayer": {
-                    "token": "https://cdn.com/talk.mp3",
-                    "playerActivity": "STOPPED",
-                    "offsetInMilliseconds": 1234
-                },
-                "System": {
-                    "device": {
-                        "deviceId": TEST_DEVICE_ID,
-                        "supportedInterfaces": {
-                            "AudioPlayer": {}
-                        }
-                    },
-                    "application": {
-                        "applicationId": APPLICATION_ID
-                    },
-                    "apiAccessToken": TEST_API_ACCESS_TOKEN,
-                    "user": {
-                        "userId": TEST_USER_ID
-                    },
-                    "apiEndpoint": "https://api.eu.amazonalexa.com"
-                }
-            }
+            "context": test_context
         }
-        import json
-        print(json.dumps(alexa_main.lambda_handler(event, None)))
+        response: Dict[str, Any] = alexa_main.lambda_handler(event, {})
+
+        self.assertEqual(response["response"]["outputSpeech"]["type"], "PlainText")
+        self.assertTrue(bool(re.match(r"Here's the sermon, .+, by .+ ", response["response"]["outputSpeech"]["text"])),
+                        "The speech output is wrong")
+        self.assertEqual(len(response["response"]["directives"]), 1)
+        self.assertEqual(response["response"]["directives"][0]["type"], "AudioPlayer.Play")
+        self.assertEqual(response["response"]["directives"][0]["playBehavior"], "REPLACE_ALL")
+        self.assertTrue(
+            bool(re.match(r"https://.+\.mp3", response["response"]["directives"][0]["audioItem"]["stream"]["url"])),
+            "The audio stream URL is not an HTTPS URL to an MP3 file")
+        self.assertEqual(response["response"]["card"]["type"], "Simple")
+        self.assertEqual(type(response["response"]["card"]["title"]), str)
+        self.assertEqual(type(response["response"]["card"]["content"]), str)

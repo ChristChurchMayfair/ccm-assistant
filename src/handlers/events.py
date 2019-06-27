@@ -1,39 +1,39 @@
+from typing import Dict, Callable, List, Any
+
 import intents
 
+intent_handlers_non_audio: Dict[str, Callable] = {
+    "GetSermonPassage": intents.handle_get_passage,
+    "PlaySermon": intents.handle_play_sermon,
+    "GetNextEvent": intents.handle_get_next_event,
+    "AMAZON.HelpIntent": intents.handle_welcome,
+    "AMAZON.CancelIntent": intents.handle_session_end_request,
+    "AMAZON.StopIntent": intents.handle_session_end_request,
+}
 
-def on_launch():
-    return intents.handle_welcome()
+irrelevant_audio_intents: List[str] = ["AMAZON.LoopOffIntent", "AMAZON.LoopOnIntent",
+                                       "AMAZON.RepeatIntent", "AMAZON.ShuffleOffIntent",
+                                       "AMAZON.ShuffleOnIntent", "AMAZON.StartOverIntent",
+                                       "AMAZON.PreviousIntent", "AMAZON.NextIntent"]
 
 
-def on_intent(intent_request, session, context):
-    intent = intent_request["intent"]
-    intent_name = intent_request["intent"]["name"]
+def on_launch() -> Dict[str, Any]:
+    return intents.handle_welcome(None)
 
-    # Dispatch to intent handlers
-    irrelevant_audio_intents = ["AMAZON.LoopOffIntent", "AMAZON.LoopOnIntent",
-                                "AMAZON.RepeatIntent", "AMAZON.ShuffleOffIntent",
-                                "AMAZON.ShuffleOnIntent", "AMAZON.StartOverIntent",
-                                "AMAZON.PreviousIntent", "AMAZON.NextIntent"]
-    if intent_name == "GetSermonPassage":
-        return intents.handle_get_passage(intent)
-    elif intent_name == "PlaySermon":
-        return intents.handle_play_sermon(intent)
-    elif intent_name == "GetNextEvent":
-        return intents.handle_get_next_event()
-    elif intent_name == "AMAZON.HelpIntent":
-        return intents.handle_welcome()
-    elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
-        return intents.handle_session_end_request()
+
+def on_intent(intent_request: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
+    intent: Dict[str, Any] = intent_request["intent"]
+    intent_name: str = intent_request["intent"]["name"]
+
+    if intent_name in intent_handlers_non_audio:
+        return intent_handlers_non_audio[intent_name](intent)
+
     # Audio player intents
-    elif intent_name in irrelevant_audio_intents:
+    if intent_name in irrelevant_audio_intents:
         return intents.handle_irrelevant_audio_intent()
-    elif intent_name == "AMAZON.PauseIntent":
+    if intent_name == "AMAZON.PauseIntent":
         return intents.handle_pause()
-    elif intent_name == "AMAZON.ResumeIntent":
+    if intent_name == "AMAZON.ResumeIntent":
         return intents.handle_resume(context)
     else:
         raise ValueError("Invalid intent")
-
-
-def on_session_ended(session_ended_request, session):
-    pass

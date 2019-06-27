@@ -10,7 +10,7 @@ from .intents_utils import ensure_date_and_service_slots_filled, ensure_date_is_
     ensure_service_valid, ensure_date_is_not_in_the_future
 
 
-def handle_welcome():
+def handle_welcome(_intent):
     speech_output = speech.WELCOME
     should_end_session = False
     reprompt_text = None
@@ -21,7 +21,7 @@ def handle_welcome():
                                        should_end_session=should_end_session))
 
 
-def handle_session_end_request():
+def handle_session_end_request(_intent):
     should_end_session = True
     return utils.build_response(
         utils.build_speechlet_response(card_title=cards.END_SESSION_TITLE,
@@ -101,7 +101,7 @@ def handle_get_passage(intent):
     return utils.build_response(speechlet_response)
 
 
-def handle_get_next_event():
+def handle_get_next_event(_intent):
     reprompt_text = None
     should_end_session = True
     next_event = events.get_next_event()
