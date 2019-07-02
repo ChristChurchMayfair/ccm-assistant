@@ -1,5 +1,5 @@
 *.pyc
 .idea/*
-src/secrets.py
+src/alexa_secrets.py
 *.DS_Store
 venv/

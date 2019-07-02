@@ -25,11 +25,11 @@ AWS Lambda function for Christ Church Mayfair Assistant Alexa skill.
   
 ## Contributing
 ### Adding bible passage readings for future sermons
-Add rows to [this Google Sheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqiE5BF-VtKfaV9NtpwYqgT3Ijw5pRmfbg7mzIIMrV5huonrAYQPawIHzoqA-_fAsUgP4Bvcs6NgUk/pub?output=csv).
+Add rows to [this Google Sheet](https://docs.google.com/spreadsheets/d/1DXPesctGzPii73a-DtqgdJ0f73MLi5qNYC3fSUrBzyM/edit?usp=sharing).
 
 ### Running and testing locally:
 - Install dependencies by running `pip install -r src/requirements.txt`
 - Add these environment variables:
   - `PYTHONPATH` - the file path of the `src/` directory
-- Make the file, `src/secrets.py`, containing API keys and the like. Copy across the content from
-  `src/secrets.py.template` and either get your own keys or email mauriceyap@hotmail.co.uk
+- Make the file, `src/alexa_secrets.py`, containing API keys and the like. Copy across the content from
+  `src/alexa_secrets.py.template` and either get your own keys or email mauriceyap@hotmail.co.uk

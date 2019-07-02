@@ -11,7 +11,7 @@ dist: trusty
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_5521cf2de878_key -iv $encrypted_5521cf2de878_iv
-  -in secrets.py.enc -out src/secrets.py -d
+  -in alexa_secrets.py.enc -out src/alexa_secrets.py -d
 
 install:
 - pip install --target=src -r src/requirements.txt

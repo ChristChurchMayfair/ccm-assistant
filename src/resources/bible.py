@@ -5,7 +5,7 @@ import requests
 from requests import Response
 
 import config
-import secrets
+import alexa_secrets
 
 
 def process_html_passage(raw_passage_html: str) -> str:
@@ -28,9 +28,21 @@ def process_html_passage(raw_passage_html: str) -> str:
 
 def get_bible_text(book: str, start_chapter: str, start_verse: str, end_chapter: str, end_verse: str,
                    with_verse_numbers: bool = True) -> str:
-    payload: Dict[str, str] = {"q": f"{book}+{start_chapter}:{start_verse}-{end_chapter}:{end_verse}"}
+    if len(start_chapter) == 0:  # e.g. James
+        payload_q: str = book
+    elif len(start_verse) == 0 and len(end_chapter) == 0 and len(end_verse) == 0:  # e.g. Genesis 1
+        payload_q: str = f"{book}+{start_chapter}"
+    elif len(start_verse) == 0 and len(end_verse) == 0:  # e.g. Genesis 1 - 2
+        payload_q: str = f"{book}+{start_chapter}-{end_chapter}"
+    elif len(start_verse) == 0:  # e.g. Genesis 1 - 2:3
+        payload_q: str = f"{book}+{start_chapter}-{end_chapter}:{end_verse}"
+    elif len(end_chapter) == 0 and len(end_verse) == 0:  # e.g. Genesis 1:2
+        payload_q: str = f"{book}+{start_chapter}:{start_verse}"
+    else:  # e.g. Genesis 1:2 - 2:3
+        payload_q: str = f"{book}+{start_chapter}:{start_verse}-{end_chapter}:{end_verse}"
     try:
-        response: Response = requests.get(config.BIBLE_API_URL, params=payload, auth=(secrets.BIBLE_API_KEY, "X"))
+        url: str = f"{config.BIBLE_API_URL}?q={payload_q}"
+        response: Response = requests.get(url, auth=(alexa_secrets.BIBLE_API_KEY, "X"))
         passage_html: str = response.json()["response"]["search"]["result"]["passages"][0]["text"]
         processed_passage: str = process_html_passage(passage_html)
         if not with_verse_numbers:

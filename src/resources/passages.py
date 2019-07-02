@@ -15,7 +15,7 @@ def get_passage(date: datetime.date, service: str) -> Optional[Dict[str, Any]]:
 
     try:
         response: Response = requests.get(BIBLE_PASSAGES_CSV_URL)
-        reader: csv.DictReader = csv.DictReader(response.iter_lines())
+        reader: csv.DictReader = csv.DictReader(response.iter_lines(decode_unicode=True))
         for row in reader:
             if row['date'] == date.strftime('%Y-%m-%d'):
                 if not row[f'{service} book']:
