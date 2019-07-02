@@ -1,10 +1,10 @@
 # Alexa skill
-APPLICATION_ID = "amzn1.ask.skill.dd677950-cade-4805-b1f1-ce2e3a3569f0"
+APPLICATION_ID: str = "amzn1.ask.skill.dd677950-cade-4805-b1f1-ce2e3a3569f0"
+RESPONSE_VERSION: str = "1.0"
 
 # Bible API
 BIBLE_TRANSLATION = "GNBDC"  # Can't use NIV - it's still in copyright
-BIBLE_API_URL = "https://bibles.org/v2/eng-{translation}/passages.js".format(
-    translation=BIBLE_TRANSLATION)
+BIBLE_API_URL = f"https://bibles.org/v2/eng-{BIBLE_TRANSLATION}/passages.js"
 
 # Bible Passages
 BIBLE_PASSAGES_CSV_URL = ("https://docs.google.com/spreadsheets/d/e/2PACX-1vQqiE5BF"

@@ -1,15 +1,21 @@
+from typing import Optional, Dict
+import datetime
+
 import requests
 from xml.etree import ElementTree
+
+from requests import Response
+
 import utils
 import config
 
 
-def get_sermon(date, service):
+def get_sermon(date: datetime.date, service: str) -> Optional[Dict[str, str]]:
     try:
-        response = requests.get(config.SERMONS_XML_URL)
-        tree = ElementTree.fromstring(response.content)
+        response: Response = requests.get(config.SERMONS_XML_URL)
+        tree: ElementTree = ElementTree.fromstring(response.content)
 
-        for item in tree.getchildren()[0].findall("item"):
+        for item in list(tree)[0].findall("item"):
             if (date == utils.date_from_ccm_xml_text(item.find("pubDate").text)
                     and config.SERMONS_XML_SERVICE_NAMES[service] == item.find(
                         "ccm:event", config.SERMONS_XML_NAMESPACE).text):
@@ -23,6 +29,4 @@ def get_sermon(date, service):
                 }
         return None
     except requests.exceptions.RequestException as e:
-        print(e)
-        return None
-
+        raise RuntimeError(e)

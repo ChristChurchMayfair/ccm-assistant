@@ -71,30 +71,4 @@ class TestAlexaMain(unittest.TestCase):
         }
 
         alexa_main.lambda_handler(test_event, None)
-        on_intent.assert_called_once_with(test_request_obj, test_session_obj, test_context_obj)
-
-    @patch("alexa_main.events.on_session_ended")
-    def test_lambda_handler_session_ended_request(self, on_session_ended):
-        test_request_obj = {
-            'requestId': TEST_REQUEST_ID,
-            'type': 'SessionEndedRequest'
-        }
-        test_session_obj = {
-            'application': {
-                'applicationId': TEST_APPLICATION_ID,
-            },
-            'new': False
-        }
-        test_context_obj = {
-            "System": {},
-            "AudioPlayer": {}
-        }
-
-        test_event = {
-            'session': test_session_obj,
-            'request': test_request_obj,
-            'context': test_context_obj
-        }
-
-        alexa_main.lambda_handler(test_event, None)
-        on_session_ended.assert_called_once_with(test_request_obj, test_session_obj)
+        on_intent.assert_called_once_with(test_request_obj, test_context_obj)

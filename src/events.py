@@ -1,6 +1,7 @@
 from typing import Dict, Callable, List, Any
 
 import intents
+from custom_types import AlexaResponse
 
 intent_handlers_non_audio: Dict[str, Callable] = {
     "GetSermonPassage": intents.handle_get_passage,
@@ -17,15 +18,15 @@ irrelevant_audio_intents: List[str] = ["AMAZON.LoopOffIntent", "AMAZON.LoopOnInt
                                        "AMAZON.PreviousIntent", "AMAZON.NextIntent"]
 
 
-def on_launch() -> Dict[str, Any]:
-    return intents.handle_welcome(None)
+def on_launch() -> AlexaResponse:
+    return intents.handle_welcome()
 
 
 def on_intent(intent_request: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
-    intent: Dict[str, Any] = intent_request["intent"]
     intent_name: str = intent_request["intent"]["name"]
 
     if intent_name in intent_handlers_non_audio:
+        intent: Dict[str, Any] = intent_request["intent"]
         return intent_handlers_non_audio[intent_name](intent)
 
     # Audio player intents
@@ -35,5 +36,5 @@ def on_intent(intent_request: Dict[str, Any], context: Dict[str, Any]) -> Dict[s
         return intents.handle_pause()
     if intent_name == "AMAZON.ResumeIntent":
         return intents.handle_resume(context)
-    else:
-        raise ValueError("Invalid intent")
+
+    raise ValueError("Invalid intent")

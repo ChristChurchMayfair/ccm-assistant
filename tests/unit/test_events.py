@@ -1,13 +1,10 @@
 import unittest
 
-import handlers.events as events
-from testing_utils import is_valid_response, ValidResponseObjectTester
+import events
+from tests.testing_utils import is_valid_response, ValidResponseObjectTester
 
 
 class TestEvents(unittest.TestCase):
-    def test_on_session_ended_returns_nothing(self):
-        self.assertIsNone(events.on_session_ended(None, None))
-
     def test_on_launch(self):
         response = events.on_launch()
         self.assertTrue(is_valid_response(response))

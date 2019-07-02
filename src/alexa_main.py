@@ -3,14 +3,15 @@ from typing import Dict, Any
 
 
 import config
-import handlers.events as events
+import events
+from custom_types import AlexaResponse
 
 
-def lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
-    # Log input event to CloudWatch
-    print("EVENT OBJECT:\n{event_json}".format(event_json=json.dumps(event)))
+def log_event_to_cloudwatch(event: Dict[str, Any]) -> None:
+    print(json.dumps(event))
 
-    # Make sure only this Alexa skill can use this function
+
+def validate_application_id(event: Dict[str, Any]) -> None:
     application_id: str = (
         event["session"]["application"]["applicationId"]
         if "session" in event.keys()
@@ -18,9 +19,15 @@ def lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, 
     if application_id != config.APPLICATION_ID:
         raise ValueError("Invalid Application ID")
 
-    request_type = event["request"]["type"]
+
+def lambda_handler(event: Dict[str, Any], _context: Dict[str, Any]) -> AlexaResponse:
+    log_event_to_cloudwatch(event)
+    validate_application_id(event)
+
+    request_type: str = event["request"]["type"]
 
     if request_type == "LaunchRequest":
         return events.on_launch()
-    elif request_type == "IntentRequest":
+
+    if request_type == "IntentRequest":
         return events.on_intent(event["request"], event["context"])
