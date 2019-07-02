@@ -1,5 +1,4 @@
 import re
-from typing import Dict
 
 import requests
 from requests import Response
@@ -38,6 +37,8 @@ def get_bible_text(book: str, start_chapter: str, start_verse: str, end_chapter:
         payload_q: str = f"{book}+{start_chapter}-{end_chapter}:{end_verse}"
     elif len(end_chapter) == 0 and len(end_verse) == 0:  # e.g. Genesis 1:2
         payload_q: str = f"{book}+{start_chapter}:{start_verse}"
+    elif len(end_chapter) == 0:  # e.g. Genesis 1 - 2
+        payload_q: str = f"{book}+{start_chapter}:{start_verse}-{end_verse}"
     else:  # e.g. Genesis 1:2 - 2:3
         payload_q: str = f"{book}+{start_chapter}:{start_verse}-{end_chapter}:{end_verse}"
     try:
