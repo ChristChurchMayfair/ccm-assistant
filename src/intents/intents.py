@@ -54,9 +54,14 @@ def handle_get_passage(intent) -> AlexaResponse:
         return utils.build_speechlet_response(speech.UNABLE_TO_FETCH_BIBLE_PASSAGE, True)
 
     if "value" not in intent["slots"]["ReadPassage"]:
+        card_title: str = cards.get_passage_title(date, service)
         card_text: str = cards.format_get_passage_content(passage_text, humanised_passage, config.BIBLE_TRANSLATION)
-        return utils.build_speechlet_response(speech.bible_passage_response(humanised_passage), False,
-                                              card_title=cards.get_passage_title(date, service), card_text=card_text,
+        is_card_content_too_long: bool = len(card_title) + len(card_text) > config.MAX_CARD_CHARACTERS
+        return utils.build_speechlet_response(speech.bible_passage_response(humanised_passage,
+                                                                            not is_card_content_too_long), False,
+                                              card_title=card_title, card_text=(None
+                                                                                if is_card_content_too_long
+                                                                                else card_text),
                                               directives=get_read_passage_directives)
 
     try:

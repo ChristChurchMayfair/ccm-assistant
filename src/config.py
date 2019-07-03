@@ -25,5 +25,8 @@ HTTP_MP3_TO_HTTPS_M3U_API_URL = ("https://0elu033c2a.execute-api.eu-west-1.amazo
 FUTURE_DAYS_GO_BACK_YEAR_THRESHOLD_SERMONS = 30
 FUTURE_DAYS_GO_BACK_YEAR_THRESHOLD_PASSAGES = 150
 
+# See https://developer.amazon.com/docs/custom-skills/include-a-card-in-your-skills-response.html
+MAX_CARD_CHARACTERS: int = 8000
+
 # CCM Events
 EVENTS_JSON_URL = "https://ccmayfair.churchsuite.co.uk/embed/calendar/json"

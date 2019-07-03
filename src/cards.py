@@ -33,8 +33,8 @@ def get_sermon_content(passage, series_name, speaker):
 
 
 def get_next_event_title(event_title, event_datetime):
-    date_string = datetime.strftime(event_datetime, "%A %d %B")
-    time_string = datetime.strftime(event_datetime, "%H:%M")
+    date_string: str = datetime.strftime(event_datetime, "%A %d %B")
+    time_string: str = datetime.strftime(event_datetime, "%H:%M")
     return f"{event_title} - {time_string}, {date_string}"
 
 

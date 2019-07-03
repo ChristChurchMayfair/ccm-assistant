@@ -40,9 +40,9 @@ class TestAlexaMain(unittest.TestCase):
         }
 
         with self.assertRaises(ValueError) as cm_session_event:
-            alexa_main.lambda_handler(test_session_event_with_invalid_id, None)
+            alexa_main.lambda_handler(test_session_event_with_invalid_id, {})
         with self.assertRaises(ValueError) as cm_context_event:
-            alexa_main.lambda_handler(test_context_only_event_with_invalid_id, None)
+            alexa_main.lambda_handler(test_context_only_event_with_invalid_id, {})
         self.assertEqual(str(cm_session_event.exception), "Invalid Application ID")
         self.assertEqual(str(cm_context_event.exception), "Invalid Application ID")
         on_launch.assert_not_called()
@@ -70,5 +70,5 @@ class TestAlexaMain(unittest.TestCase):
             'context': test_context_obj
         }
 
-        alexa_main.lambda_handler(test_event, None)
+        alexa_main.lambda_handler(test_event, {})
         on_intent.assert_called_once_with(test_request_obj, test_context_obj)

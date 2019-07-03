@@ -20,8 +20,9 @@ UNABLE_TO_FETCH_BIBLE_PASSAGE: str = "Sorry, I couldn't get that Bible passage"
 DO_NOT_READ_RESPONSE = "Okay "
 
 
-def bible_passage_response(passage: str) -> str:
-    return f"It's {passage}. I've sent this bible passage to your Alexa app. Would you like me to read it out? "
+def bible_passage_response(passage: str, passage_in_card_text: bool) -> str:
+    sent_passage_part: str = " I've sent this bible passage to your Alexa app." if passage_in_card_text else ""
+    return f"It's {passage}.{sent_passage_part} Would you like me to read it out? "
 
 # Get next event
 
