@@ -1,5 +1,7 @@
 from typing import Dict, Any, List
 
+from custom_types import Service
+
 get_read_passage_directives: List[Dict[str, str]] = [{"type": "Dialog.ElicitSlot", "slotToElicit": "ReadPassage"}]
 
 
@@ -15,6 +17,7 @@ def is_service_valid(intent: Dict[str, Any]) -> bool:
         return False
 
 
-def get_service(intent: Dict[str, Any]) -> str:
-    return intent["slots"]["Service"]["resolutions"]["resolutionsPerAuthority"][0]["values"][0]["value"]["id"].lower()
+def get_service(intent: Dict[str, Any]) -> Service:
+    return Service[intent["slots"]["Service"]["resolutions"]["resolutionsPerAuthority"][0]["values"][0]["value"][
+        "id"].lower()]
 

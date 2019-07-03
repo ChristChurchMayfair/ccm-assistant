@@ -8,16 +8,17 @@ from requests import Response
 
 import utils
 import config
+from custom_types import Service
 
 
-def get_sermon(date: datetime.date, service: str) -> Optional[Dict[str, str]]:
+def get_sermon(date: datetime.date, service: Service) -> Optional[Dict[str, str]]:
     try:
         response: Response = requests.get(config.SERMONS_XML_URL)
         tree: ElementTree = ElementTree.fromstring(response.content)
 
         for item in list(tree)[0].findall("item"):
             if (date == utils.date_from_ccm_xml_text(item.find("pubDate").text)
-                    and config.SERMONS_XML_SERVICE_NAMES[service] == item.find(
+                    and config.SERMONS_XML_SERVICE_NAMES[service.name] == item.find(
                         "ccm:event", config.SERMONS_XML_NAMESPACE).text):
                 return {
                     "title": item.find("title").text,

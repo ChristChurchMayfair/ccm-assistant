@@ -11,7 +11,7 @@ import cards
 import speech
 from intents.intents_utils import is_date_and_service_slots_filled, is_service_valid, get_service,\
     get_read_passage_directives
-from custom_types import AlexaResponse
+from custom_types import AlexaResponse, Service
 
 
 def handle_welcome(_intent: Any = None) -> AlexaResponse:
@@ -32,7 +32,7 @@ def handle_get_passage(intent) -> AlexaResponse:
         return utils.build_repeat_service_response()
 
     date: datetime.date = utils.sunday_from(intent["slots"]["Date"]["value"])
-    service: str = get_service(intent)
+    service: Service = get_service(intent)
 
     try:
         reading_data: Dict[str, Any] = passages.get_passage(date, service)
@@ -104,7 +104,7 @@ def handle_play_sermon(intent: Dict[str, Any]) -> AlexaResponse:
         return utils.build_repeat_service_response()
 
     date: datetime.date = utils.sunday_from(intent["slots"]["Date"]["value"])
-    service: str = get_service(intent)
+    service: Service = get_service(intent)
 
     if not utils.is_not_in_future(date):
         return utils.build_speechlet_response(speech.SERVICE_IS_IN_THE_FUTURE, True)
