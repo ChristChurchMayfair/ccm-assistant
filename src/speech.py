@@ -12,7 +12,7 @@ WELCOME = ("I can read you the Bible passage for a service or play you a past se
            "What would you like? ")
 
 # End session
-END_SESSION = "See you later! "
+END_SESSION = ""
 
 # Get passage
 NO_BIBLE_PASSAGE_FOR_GIVEN_DATE: str = "There isn't a Bible passage for that date "
