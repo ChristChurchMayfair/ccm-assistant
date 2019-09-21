@@ -38,7 +38,7 @@ def handle_get_passage(intent) -> AlexaResponse:
         reading_data: Dict[str, Any] = passages.get_passage(date, service)
     except RuntimeError as e:
         print(e)
-        return utils.build_speechlet_response(speech.NO_BIBLE_PASSAGE_FOR_GIVEN_DATE, True)
+        return utils.build_speechlet_response(speech.NO_BIBLE_PASSAGE_FOR_GIVEN_SERVICE, True)
 
     book: str = reading_data["book"]
     start_chapter: str = str(reading_data["start"]["chapter"])

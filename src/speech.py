@@ -15,7 +15,7 @@ WELCOME = ("I can read you the Bible passage for a service or play you a past se
 END_SESSION = ""
 
 # Get passage
-NO_BIBLE_PASSAGE_FOR_GIVEN_DATE: str = "There isn't a Bible passage for that date "
+NO_BIBLE_PASSAGE_FOR_GIVEN_SERVICE: str = "There isn't a Bible passage for that service "
 UNABLE_TO_FETCH_BIBLE_PASSAGE: str = "Sorry, I couldn't get that Bible passage"
 DO_NOT_READ_RESPONSE = "Okay "
 
