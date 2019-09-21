@@ -19,3 +19,8 @@ class TestSpeech(unittest.TestCase):
         test_event_datetime = datetime(2019, 12, 23, 20, 15, 0)
         self.assertEqual(speech.get_next_event("Evening of fun", test_event_datetime),
                          "The next event is Evening of fun on Monday 23 December at 8 15 PM. ")
+
+    def test_get_next_event_on_the_hour(self):
+        test_event_datetime = datetime(2019, 9, 25, 19, 0, 0)
+        self.assertEqual(speech.get_next_event("Annual Vision Evening", test_event_datetime),
+                         "The next event is Annual Vision Evening on Wednesday 25 September at 7 PM. ")

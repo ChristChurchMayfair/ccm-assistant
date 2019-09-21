@@ -27,7 +27,8 @@ def bible_passage_response(passage: str, passage_in_card_text: bool) -> str:
 
 # Get next event
 def get_next_event(event_name, event_datetime):
-    return f"The next event is {event_name} {datetime.strftime(event_datetime, 'on %A %d %B at %-I %M %p')}. "
+    format_string: str = '%A %d %B at %-I %p' if event_datetime.minute == 0 else '%A %d %B at %-I %M %p'
+    return f"The next event is {event_name} on {datetime.strftime(event_datetime, format_string)}. "
 
 
 NO_EVENTS_FOUND = "There aren't any upcoming events. "
