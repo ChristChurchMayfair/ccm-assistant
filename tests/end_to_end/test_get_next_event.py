@@ -72,7 +72,7 @@ class TestGetNextEvent(unittest.TestCase):
         response: Dict[str, Any] = alexa_main.lambda_handler(event, {})
         self.assertEqual(response["response"]["outputSpeech"]["type"], "PlainText")
         self.assertEqual(type(response["response"]["outputSpeech"]["text"]), str)
-        self.assertTrue(bool(re.match(r"The next event is .+ on \w+ \d+ \w+ at \d\d?:\d\d?( in the evening)?. ",
+        self.assertTrue(bool(re.match(r"The next event is .+ on \w+ \d+ \w+ at \d\d? \d\d [AP]M. ",
                                       response["response"]["outputSpeech"]["text"])), "The speech output is wrong")
         self.assertTrue(response["response"]["shouldEndSession"])
         self.assertTrue(bool(re.match(r".+ - \d\d:\d\d, \w+ \d\d \w+", response["response"]["card"]["title"])),
