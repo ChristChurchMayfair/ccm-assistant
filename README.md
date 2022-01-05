@@ -32,4 +32,4 @@ Add rows to [this Google Sheet](https://docs.google.com/spreadsheets/d/1DXPesctG
 - Add these environment variables:
   - `PYTHONPATH` - the file path of the `src/` directory
 - Make the file, `src/alexa_secrets.py`, containing API keys and the like. Copy across the content from
-  `src/alexa_secrets.py.template` and either get your own keys or email mauriceyap@hotmail.co.uk
+  `src/alexa_secrets.py.template` and either get your own keys or email Maurice Yap
